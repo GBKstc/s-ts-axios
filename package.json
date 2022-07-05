@@ -1,0 +1,43 @@
+{
+  "name": "s-ts-axios",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node server/server.js",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config './examples/webpack.config.js'  --open --hot  --port 8000",
+    "sTest": "npm run server|npm run start"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "prettier": "^1.14.3",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-loader": "^3.5.4",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.11.3"
+  },
+  "dependencies": {
+    "@types/qs": "^6.5.3",
+    "atob": "^2.1.2",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "qs": "^6.7.0",
+    "ts": "^0.2.2",
+    "typescript": "^3.3.3333"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GBKstc/s-ts-axios.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GBKstc/s-ts-axios/issues"
+  },
+  "homepage": "https://github.com/GBKstc/s-ts-axios#readme"
+}
