@@ -24,3 +24,34 @@ export function processHeaders(headers: any = {}, data: any): any {
     }
     return headers;
 }
+
+export function parseHeaders(headers: string): any {
+    let res = Object.create(null);
+    if (!headers) {
+        return res;
+    }
+    headers.split("\r\n").forEach(line => {
+        let [key, val] = line.split(":");
+        key = key.trim().toLowerCase();
+        if (!key) {
+            return;
+        }
+        if (val) {
+            val = val.trim();
+        }
+
+        res[key] = val;
+    });
+    return res;
+}
+
+export function transformResponse(data: any): any {
+    if (typeof data === "string") {
+        try {
+            data = JSON.parse(data);
+        } catch (e) {
+
+        }
+    }
+    return data
+}
