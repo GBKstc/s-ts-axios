@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios from '../../src/dispatchRequest'
 
 axios({
     method: 'get',

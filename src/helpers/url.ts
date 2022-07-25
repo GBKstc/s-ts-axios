@@ -11,14 +11,14 @@ function encode(val: string): string {
         .replace(/%5D/gi, ']')
 }
 
-export function bulidURL(url: string, params?: any) {
+export function bulidURL(url?: string, params?: any) {
     // 如果params为空，直接返回原始url
-    if (!params) {
-        return url
+    if (!params || !url) {
+        return url || ""
     }
 
     // 如果url中有哈希标记，则直接返回原始url
-    if (url.includes('#')) {
+    if (url?.includes('#')) {
         const markIndex = url.indexOf('#')
         url = url.slice(0, markIndex)
         return url

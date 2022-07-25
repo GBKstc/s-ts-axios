@@ -1,10 +1,10 @@
-import {AxiosPromise, AxiosRequestConfig, AxiosResponse} from "./types";
-import {parseHeaders} from "./helpers/headers"
-import {createError} from "./helpers/error"
+import {AxiosPromise, AxiosRequestConfig, AxiosResponse} from "../types";
+import {parseHeaders} from "../helpers/headers"
+import {createError} from "../helpers/error"
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     return new Promise((resolve, reject) => {
-        const {data = null, url, method = 'get', headers = {}, responseType, timeout} = config
+        const {data = null, url, method = 'get', headers = {}, responseType, timeout} = config;
         // 1.创建XMLHttpRequest异步对象
         const request = new XMLHttpRequest()
         // 2.配置请求参数

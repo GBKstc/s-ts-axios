@@ -1,4 +1,4 @@
-import axios from "../../src/index";
+import axios from "../../src/dispatchRequest";
 
 // 1.正常情况
 axios({
@@ -22,6 +22,10 @@ axios({
     })
     .catch(e => {
         console.log(e);
+        console.log(e.message);
+        console.log(e.config);
+        console.log(e.request);
+        console.log(e.code);
     });
 
 // 3. 模拟网络错误
@@ -48,5 +52,5 @@ axios({
         console.log(res);
     })
     .catch(e => {
-        console.log(e.message);
+        console.log(e);
     });

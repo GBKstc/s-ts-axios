@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios from '../../src/dispatchRequest'
 
 // 普通参数
 axios({
