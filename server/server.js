@@ -100,6 +100,7 @@ router.post("/api/mergeConfig", function (req, res) {
 router.post("/api/transformData", function (req, res) {
     res.json(req.body);
 });
+
 app.use(router)
 
 const port = process.env.PORT || 3000
