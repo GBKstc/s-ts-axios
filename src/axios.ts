@@ -1,7 +1,7 @@
 import {AxiosInstance, AxiosMethodRequestConfig} from "./types";
 import Axios from "./core/Axios";
 import {extend} from "./helpers/util";
-import defaults from "./defaultes";
+import defaults from "./defaults";
 
 function getAxios(config: AxiosMethodRequestConfig): AxiosInstance {
     const context = new Axios(config);

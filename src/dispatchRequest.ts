@@ -2,7 +2,8 @@ import {AxiosRequestConfig, AxiosPromise, AxiosResponse} from './types'
 import xhr from './xhr'
 import {bulidURL} from "./helpers/url";
 import {transformRequest} from "./helpers/data";
-import {processHeaders, transformResponse} from "./helpers/headers";
+import {processHeaders, transformResponse, flattenHeaders} from "./helpers/headers";
+import transform from "./core/transform"
 
 function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
     processConfig(config)
@@ -12,9 +13,9 @@ function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
 }
 
 function processConfig(config: AxiosRequestConfig): void {
-    config.url = transformUrl(config)
-    config.headers = transformHeader(config);
-    config.data = transformRequestData(config)
+    config.url = transformUrl(config);
+    config.data = transform(config.data, config.headers, config.transformRequest);
+    config.headers = flattenHeaders(config.headers, config.method!);
 }
 
 function transformRequestData(config: AxiosRequestConfig): any {
@@ -32,9 +33,9 @@ function transformHeader(config: AxiosRequestConfig): string {
     return processHeaders(headers, data);
 }
 
-function transformResponseData(config: AxiosResponse): any {
-    const {data} = config
-    return transformResponse(data)
+function transformResponseData(res: AxiosResponse): any {
+    res.data = transform(res.data, res.headers, res.config.transformResponse);
+    return res;
 }
 
 export default axios
