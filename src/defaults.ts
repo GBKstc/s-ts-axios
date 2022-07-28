@@ -1,6 +1,6 @@
 import {AxiosMethodRequestConfig} from "./types";
-import {processHeaders} from "./helpers/headers";
-import {transformRequest, transformResponse} from "./helpers/data";
+import {processHeaders, transformResponse} from "./helpers/headers";
+import {transformRequest} from "./helpers/data";
 
 const defaults: AxiosMethodRequestConfig = {
     timeout: 0,
