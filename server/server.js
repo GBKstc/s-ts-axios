@@ -80,6 +80,22 @@ router.put("/api/expandInterface/put", function (req, res) {
 router.patch("/api/expandInterface/patch", function (req, res) {
     res.json(req.body);
 });
+
+// axios增加参数
+router.post("/api/addParameters", function (req, res) {
+    res.json(req.body);
+});
+// 响应支持泛型
+router.get("/api/getuser", function (req, res) {
+    res.json({
+        msg: "hello world",
+        data: {name: "难凉热血", age: 18}
+    });
+});
+// 默认配置合并
+router.post("/api/mergeConfig", function (req, res) {
+    res.json(req.body);
+});
 app.use(router)
 
 const port = process.env.PORT || 3000

@@ -4,11 +4,13 @@ export interface AxiosMethodRequestConfig {
     headers?: any;
     responseType?: XMLHttpRequestResponseType;
     timeout?: number;
+    method?: Method;
+    auth?: any;
+    proxy?: any;
 }
 
 export interface AxiosRequestConfig extends AxiosMethodRequestConfig {
     url: string;
-    method?: Method;
 }
 
 export type Method = 'get' | 'GET'
@@ -19,8 +21,8 @@ export type Method = 'get' | 'GET'
     | 'put' | 'PUT'
     | 'patch' | 'PATCH'
 
-export interface AxiosResponse {
-    data: any; // 服务端返回的数据
+export interface AxiosResponse<T = any> {
+    data: T; // 服务端返回的数据
     status: number; // HTTP 状态码
     statusText: string; // 状态消息
     headers: any; // 响应头
@@ -28,7 +30,7 @@ export interface AxiosResponse {
     request: any; // 请求的 XMLHttpRequest 对象实例
 }
 
-export interface AxiosPromise extends Promise<AxiosResponse> {
+export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {
 
 }
 
@@ -40,26 +42,49 @@ export interface AxiosError extends Error {
 }
 
 export interface Axios {
+    defaults: AxiosRequestConfig;
+    interceptors: {
+        request: AxiosInterceptorManager<AxiosRequestConfig>;
+        response: AxiosInterceptorManager<AxiosResponse>;
+    };
 
-    request(config: AxiosRequestConfig): AxiosPromise;
+    request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>;
 
-    get(url: string, config?: AxiosMethodRequestConfig): AxiosPromise;
+    get<T = any>(url: string, config?: AxiosMethodRequestConfig): AxiosPromise<T>;
 
-    delete(url: string, config?: AxiosMethodRequestConfig): AxiosPromise;
+    delete<T = any>(url: string, config?: AxiosMethodRequestConfig): AxiosPromise<T>;
 
-    head(url: string, config?: AxiosMethodRequestConfig): AxiosPromise;
+    head<T = any>(url: string, config?: AxiosMethodRequestConfig): AxiosPromise<T>;
 
-    options(url: string, config?: AxiosMethodRequestConfig): AxiosPromise;
+    options<T = any>(url: string, config?: AxiosMethodRequestConfig): AxiosPromise<T>;
 
     // 以下三个与上面三个多了data参数
 
-    post(url: string, data?: any, config?: AxiosMethodRequestConfig): AxiosPromise
+    post<T = any>(url: string, data?: any, config?: AxiosMethodRequestConfig): AxiosPromise<T>
 
-    put(url: string, data?: any, config?: AxiosMethodRequestConfig): AxiosPromise
+    put<T = any>(url: string, data?: any, config?: AxiosMethodRequestConfig): AxiosPromise<T>
 
-    patch(url: string, data?: any, config?: AxiosMethodRequestConfig): AxiosPromise
+    patch<T = any>(url: string, data?: any, config?: AxiosMethodRequestConfig): AxiosPromise<T>
 }
 
 export interface AxiosInstance extends Axios {
-    (config: AxiosRequestConfig): AxiosPromise
+    <T = any>(config: AxiosRequestConfig): AxiosPromise<T>;
+
+    <T = any>(url: string, config?: AxiosMethodRequestConfig): AxiosPromise<T>
+}
+
+
+//拦截器控制器
+export interface AxiosInterceptorManager<T> {
+    use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number;
+
+    eject(id: number): void;
+}
+
+export interface ResolvedFn<T = any> {
+    (val: T): T | Promise<T>
+}
+
+export interface RejectedFn {
+    (error: any): any
 }
