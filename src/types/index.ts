@@ -1,3 +1,7 @@
+export interface AxiosTransformer {
+    (data: any, headers?: any): any;
+}
+
 export interface AxiosMethodRequestConfig {
     data?: any;
     params?: any;
@@ -7,6 +11,10 @@ export interface AxiosMethodRequestConfig {
     method?: Method;
     auth?: any;
     proxy?: any;
+    transformRequest?: AxiosTransformer | AxiosTransformer[];
+    transformResponse?: AxiosTransformer | AxiosTransformer[];
+
+    [propName: string]: any;
 }
 
 export interface AxiosRequestConfig extends AxiosMethodRequestConfig {

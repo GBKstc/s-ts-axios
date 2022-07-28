@@ -37,4 +37,4 @@ function transformResponseData(config: AxiosResponse): any {
     return transformResponse(data)
 }
 
-export default dispatchRequest
+export default axios

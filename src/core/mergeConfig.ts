@@ -7,7 +7,7 @@ export default function mergeConfig(
 ): AxiosRequestConfig {
     let config: AxiosRequestConfig = Object.create(null); // 创建空对象，作为最终的合并结果
     // 1.常规属性，如果用户配置了就用用户配置的，如果用户没配置，则用默认配置的；
-    let defaultToUserConfig: (keyof AxiosMethodRequestConfig)[] = [
+    let defaultToUserConfig = [
         // "baseURL",
         // "transformRequest",
         // "transformResponse",
@@ -42,7 +42,7 @@ export default function mergeConfig(
     });
 
     // 2.只接受自定义配置,不管默认配置对象里面有没有，我们只取用户配置的；
-    let valueFromUserConfig: (keyof AxiosRequestConfig)[] = ["url", "method", "params", "data"];
+    let valueFromUserConfig = ["url", "method", "params", "data"];
     valueFromUserConfig.forEach(prop => {
         userConfig = userConfig || {};
         if (typeof userConfig[prop] !== 'undefined') {
@@ -52,7 +52,7 @@ export default function mergeConfig(
 
 
     // 3.复杂对象深度合并
-    let mergeDeepProperties: (keyof AxiosMethodRequestConfig)[] = ["headers", "auth", "proxy"];
+    let mergeDeepProperties = ["headers", "auth", "proxy"];
     mergeDeepProperties.forEach(prop => {
         userConfig = userConfig || {};
         if (isObject(userConfig[prop])) {
