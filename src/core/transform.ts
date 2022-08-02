@@ -1,4 +1,4 @@
-import { AxiosTransformer } from "../types";
+import {AxiosTransformer} from "../types";
 
 export default function transform(
     data: any,
@@ -14,5 +14,6 @@ export default function transform(
     fns.forEach(fn => {
         data = fn(data, headers);
     });
+    console.log(data, "transform")
     return data;
 }

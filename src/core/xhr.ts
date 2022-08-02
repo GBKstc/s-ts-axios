@@ -3,6 +3,7 @@ import {parseHeaders} from "../helpers/headers"
 import {createError} from "../helpers/error"
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
+
     return new Promise((resolve, reject) => {
         const {data = null, url, method = 'get', headers = {}, responseType, timeout} = config;
         // 1.创建XMLHttpRequest异步对象
@@ -21,10 +22,14 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         if (timeout) {
             request.timeout = timeout;
         }
+        // console.log(data, headers);
         // 3.发送请求
         request.send(data)
+        // console.log(request);
         // 4.注册事件，拿到响应信息
         request.onreadystatechange = function handleLoad() {
+            // console.log(request.response);
+
             if (request.readyState !== 4) {
                 return;
             }

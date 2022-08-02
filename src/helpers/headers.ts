@@ -1,6 +1,12 @@
 import {isObject, deepMerge} from "./util";
 import {Method} from "../types";
 
+export function transformRequest(data: any): any {
+    if (isObject(data)) {
+        return JSON.stringify(data)
+    }
+    return data
+}
 function normalizeHeaderName(headers: any, normalizedName: string): void {
     if (!headers) {
         return;

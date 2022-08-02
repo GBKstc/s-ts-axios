@@ -1,6 +1,5 @@
 import {AxiosMethodRequestConfig} from "./types";
-import {processHeaders, transformResponse} from "./helpers/headers";
-import {transformRequest} from "./helpers/data";
+import {processHeaders, transformResponse, transformRequest} from "./helpers/headers";
 
 const defaults: AxiosMethodRequestConfig = {
     timeout: 0,
@@ -16,8 +15,8 @@ const defaults: AxiosMethodRequestConfig = {
         },
     ],
     transformResponse: [
-        function (data: any, headers: any): any {
-            processHeaders(headers, data);
+        function (data: any): any {
+            // processHeaders(headers, data);
             return transformResponse(data);
         },
     ]

@@ -9,8 +9,6 @@ export default function mergeConfig(
     // 1.常规属性，如果用户配置了就用用户配置的，如果用户没配置，则用默认配置的；
     let defaultToUserConfig = [
         // "baseURL",
-        // "transformRequest",
-        // "transformResponse",
         // "paramsSerializer",
         "timeout",
         // "withCredentials",
@@ -66,5 +64,16 @@ export default function mergeConfig(
         }
     });
 
+    //4.处理transformRequest transformResponse
+    let transformProperties = ["transformRequest", "transformResponse"];
+    transformProperties.forEach(prop => {
+        userConfig = userConfig || {};
+        const transformRequest = [...defaultConfig[prop]];
+        if (userConfig[prop] && userConfig[prop].length > 0) {
+            transformRequest.push(...userConfig[prop]);
+        }
+        config[prop] = transformRequest;
+    })
+    console.log(config)
     return config;
 }

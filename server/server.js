@@ -98,12 +98,17 @@ router.post("/api/mergeConfig", function (req, res) {
 });
 // 添加transformRequest 和 transformResponse
 router.post("/api/transformData", function (req, res) {
+    console.log(req.body)
     res.json(req.body);
+    // res.json({
+    //     msg: "hello world",
+    //     data: {name: "难凉热血", age: 18}
+    // });
 });
 
 app.use(router)
 
 const port = process.env.PORT || 3000
 module.exports = app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
+    console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`);
 })
