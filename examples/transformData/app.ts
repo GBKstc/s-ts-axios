@@ -13,6 +13,10 @@ axios({
             data.a = data.a + 1;
             return data;
         },
+        function (data) {
+            data.a = data.a + 2;
+            return data;
+        },
     ],
     transformResponse: [
         function (data) {

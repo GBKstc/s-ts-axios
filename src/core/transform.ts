@@ -13,7 +13,7 @@ export default function transform(
     }
     fns.forEach(fn => {
         data = fn(data, headers);
+        console.log(data)
     });
-    console.log(data, "transform")
     return data;
 }

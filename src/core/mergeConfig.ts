@@ -1,4 +1,4 @@
-import {AxiosRequestConfig, AxiosMethodRequestConfig} from "../types";
+import {AxiosRequestConfig, AxiosMethodRequestConfig, AxiosTransformer} from "../types";
 import {isObject, deepMerge} from "../helpers/util";
 
 export default function mergeConfig(
@@ -66,13 +66,25 @@ export default function mergeConfig(
 
     //4.处理transformRequest transformResponse
     let transformProperties = ["transformRequest", "transformResponse"];
+    let userTransform: AxiosTransformer[];
     transformProperties.forEach(prop => {
         userConfig = userConfig || {};
-        const transformRequest = [...defaultConfig[prop]];
-        if (userConfig[prop] && userConfig[prop].length > 0) {
-            transformRequest.push(...userConfig[prop]);
+        const transform = [...defaultConfig[prop]];
+        if (userConfig[prop]) {
+            if (typeof userConfig[prop] === "function") {
+                userTransform = [userConfig[prop]];
+            }
+            if (userConfig[prop] instanceof Array) {
+                userTransform = userConfig[prop]
+            }
+            if (prop === "transformRequest") {
+                transform.unshift(...userTransform);
+            }
+            if (prop === "transformResponse") {
+                transform.push(...userTransform);
+            }
         }
-        config[prop] = transformRequest;
+        config[prop] = transform;
     })
     console.log(config)
     return config;
